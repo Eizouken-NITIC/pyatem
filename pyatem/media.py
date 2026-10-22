@@ -1,11 +1,14 @@
 # Copyright 2021 - 2022, Martijn Braam and the OpenAtem contributors
 # SPDX-License-Identifier: LGPL-3.0-only
 import struct
-import pyatem.mediaconvert as mc
+
+# The mediaconvert C extension is not built in this fork. It is imported only by the
+# functions that convert images, so the protocol can be used without a C compiler.
 
 
 def atem_to_image(data, width, height):
     """Decompress and decode an atem frame to RGBA8888"""
+    import pyatem.mediaconvert as mc
     data = rle_decode(data)
     data = mc.atem_to_rgb(data, width, height)
     return data
@@ -13,17 +16,20 @@ def atem_to_image(data, width, height):
 
 def image_to_atem(data, width, height):
     """Convert a frame to atem format and compress it"""
+    import pyatem.mediaconvert as mc
     data = mc.rgb_to_atem(data, width, height)
     return rle_encode(data)
 
 
 def atem_to_rgb(data, width, height):
     """Wrapper for the native function"""
+    import pyatem.mediaconvert as mc
     return mc.atem_to_rgb(data, width, height)
 
 
 def rgb_to_atem(data, width, height, premultiply=False):
     """Wrapper for the native function"""
+    import pyatem.mediaconvert as mc
     return mc.rgb_to_atem(data, width, height, premultiply)
 
 
@@ -64,6 +70,7 @@ def rle_encode_slow(data):
 
 
 def rle_encode(data):
+    import pyatem.mediaconvert as mc
     return mc.rle_encode(data)
 
 

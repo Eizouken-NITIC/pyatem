@@ -1,12 +1,11 @@
 # Copyright 2022 - 2022, Martijn Braam and the OpenAtem contributors
 # SPDX-License-Identifier: LGPL-3.0-only
-from setuptools import setup, Extension
+from setuptools import setup
 
 setup(
     name='pyatem',
     version='0.13.0',
     packages=['pyatem', 'pyatem.converters'],
-    ext_modules=[Extension('pyatem.mediaconvert', ['pyatem/mediaconvertmodule.c'])],
     url='https://git.sr.ht/~martijnbraam/pyatem',
     license='LGPL3',
     author='Martijn Braam',
